@@ -84,11 +84,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@color/btn_skip_bg"
+            android:onClick="onSkiplick"
             android:text="@string/btn_skip" />
     </LinearLayout>
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/speakFrag"
         android:name="com.example.nihar.delta.Speak"
         android:layout_width="0dp"
         android:layout_height="70dp"

@@ -113,7 +113,9 @@ public class Speak extends Fragment {
             case 1:
                 processLoginPage();
                 break;
-
+            case 2:
+                processRegisterPage();
+                break;
         }
     }
     private void processLoginPage(){
@@ -143,5 +145,36 @@ public class Speak extends Fragment {
         else {
             TTS.speak("Unknown Command");
         }
+    }
+    private void processRegisterPage(){
+        String temp;
+        if(commandText.indexOf("username")==0){
+            temp = commandText.substring("username".length());
+            temp= temp.replaceAll("\\s+","");
+            ((Register)getActivity()).setUsername(temp);
+        }
+        else if(commandText.indexOf("password")==0){
+            temp = commandText.substring("password".length());
+            temp= temp.replaceAll("\\s+","");
+            ((Register)getActivity()).setPass(temp);
+        }
+        else if(commandText.indexOf("verify password")==0){
+            temp = commandText.substring("verify password".length());
+            temp= temp.replaceAll("\\s+","");
+            ((Register)getActivity()).setrePass(temp);
+        }
+        else if(commandText.indexOf("register")==0){
+            ((Register)getActivity()).clickRegister();
+        }
+        else if(commandText.indexOf("skip")==0){
+            ((Register)getActivity()).clickSkip();
+        }
+        else if(commandText.indexOf("back")==0){
+            ((Register)getActivity()).callBack();
+        }
+        else {
+            TTS.speak("Unknown Command");
+        }
+
     }
 }

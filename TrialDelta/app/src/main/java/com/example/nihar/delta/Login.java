@@ -90,6 +90,8 @@ public class Login extends AppCompatActivity {
                                 // Save your string in SharedPref
                                 editor.putString("user_id", userN);
                                 editor.apply();
+                                GlobalVariables.login_status=true;
+                                GlobalVariables.username=userN;
                                 Intent inte = new Intent(Login.this,MainMenu.class);
                                 startActivity(inte);
                                 finish();

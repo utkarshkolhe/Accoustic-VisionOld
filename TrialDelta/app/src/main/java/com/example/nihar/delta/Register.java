@@ -24,7 +24,7 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
     protected int Page_ID = 2;
     protected EditText pass,repass,username;
-    protected Button register;
+    protected Button register,skip;
     protected FirebaseDatabase database;
     protected  String userN,passS,repassS;
     protected TextView console;
@@ -37,6 +37,8 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         GlobalVariables.current_page=Page_ID;
         username = findViewById(R.id.username);
+        skip=findViewById(R.id.btnskiplogin);
+        register=findViewById(R.id.btnLinkToRegisterScreen);
         pass = findViewById(R.id.password);
         console = findViewById(R.id.console);
         repass = findViewById(R.id.passwordre);
@@ -79,6 +81,16 @@ public class Register extends AppCompatActivity {
                         if(corrctUN && correctPW){
                             users.put(userN, passS);
                             ref.setValue(users);
+                            SharedPreferences sharedPref;
+                            sharedPref= getSharedPreferences("myPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor;
+                            editor=sharedPref.edit();
+
+                            // Save your string in SharedPref
+                            editor.putString("user_id", userN);
+                            editor.apply();
+                            GlobalVariables.login_status=true;
+                            GlobalVariables.username=userN;
                             inte = new Intent(Register.this,MainMenu.class);
                             finish();
                             startActivity(inte);
@@ -102,16 +114,6 @@ public class Register extends AppCompatActivity {
                 });
 
 
-
-        SharedPreferences sharedPref;
-        sharedPref= getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor;
-        editor=sharedPref.edit();
-
-        // Save your string in SharedPref
-        editor.putString("user_id", userN);
-        editor.apply();
-
     }
     private boolean checkusername(Map<String,String> users,String userN) {
 
@@ -125,5 +127,34 @@ public class Register extends AppCompatActivity {
         return true;
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GlobalVariables.current_page=Page_ID;
+    }
+
+    public void onSkiplick(View view){
+        Intent inte = new Intent(Register.this,MainMenu.class);
+        startActivity(inte);
+    }
+    public void setUsername(String userText){
+        username.setText(userText);
+    }
+    public void setPass(String userText){
+        pass.setText(userText);
+    }
+    public void setrePass(String userText){
+        repass.setText(userText);
+    }
+    public void clickRegister(){
+        register.callOnClick();
+    }
+    public void callBack(){
+        finish();
+    }
+    public void clickSkip(){
+        skip.callOnClick();
     }
 }

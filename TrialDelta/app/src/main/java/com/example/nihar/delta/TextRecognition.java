@@ -401,7 +401,7 @@ public class TextRecognition extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        GlobalVariables.current_page=Page_ID;
         timerpause=false;
         Log.e(TAG, "onResume");
         startBackgroundThread();

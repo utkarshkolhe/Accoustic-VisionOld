@@ -21,9 +21,12 @@ public class LoadScreen extends AppCompatActivity {
         String userId=sharedPref.getString("user_id","");
         if(userId.equals("")){
             inte = new Intent(LoadScreen.this,Login.class);
+            GlobalVariables.login_status=false;
         }
         else{
             inte = new Intent(LoadScreen.this,MainMenu.class);
+            GlobalVariables.login_status=true;
+            GlobalVariables.username=userId;
         }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

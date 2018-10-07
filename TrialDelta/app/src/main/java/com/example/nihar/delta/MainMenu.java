@@ -25,7 +25,10 @@ public class MainMenu extends AppCompatActivity {
         SharedPreferences sharedPref;
         sharedPref= getSharedPreferences("myPref", Context.MODE_PRIVATE);
         String userId=sharedPref.getString("user_id","");
-        Toast.makeText(this,"Logged in as : "+userId,Toast.LENGTH_SHORT).show();
+        if(GlobalVariables.login_status)
+            Toast.makeText(this,"Logged in as : "+userId,Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Guest Login"+userId,Toast.LENGTH_SHORT).show();
     }
     public void onTextRecognition(View view){
         Intent inte = new Intent(MainMenu.this,TextRecognition.class);
@@ -40,7 +43,7 @@ public class MainMenu extends AppCompatActivity {
         startActivity(inte);
     }
     public void onSosBtnClick(View view) {
-        String number = "8605800662";
+        String number = "+918605800662";
 
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel"+number));
@@ -57,7 +60,7 @@ public class MainMenu extends AppCompatActivity {
         }Uri.parse("tel"+number);
         startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+number)));
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("8605800662",null,"msg1asjk",null,null);
+        smsManager.sendTextMessage("+918605800662",null,"msg1asjk",null,null);
 
 
     }

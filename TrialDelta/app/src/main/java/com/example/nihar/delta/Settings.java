@@ -24,4 +24,10 @@ public class Settings extends AppCompatActivity {
         editor.putString("user_id", "");
         editor.apply();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GlobalVariables.current_page=Page_ID;
+    }
 }

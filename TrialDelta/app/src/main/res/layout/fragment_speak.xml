@@ -11,5 +11,7 @@
         android:id="@+id/speakBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Speak" />
+        android:text="Speak"
+        android:textSize="25sp"
+        android:background="@drawable/speak"/>
 </FrameLayout>
