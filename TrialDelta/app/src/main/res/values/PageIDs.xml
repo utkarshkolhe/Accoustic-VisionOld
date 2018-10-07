@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    Load Screen: 0
+    Login Screen: 1
+    Register Screen: 2
+    Main Menu : 3
+    Settings : 4
+    Profile : 6
+    Text recogniion : 7
+    Object Detection : 8
+
+
+</resources>

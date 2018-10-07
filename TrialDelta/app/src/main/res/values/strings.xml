@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Vision</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>>
+    <string name="hint_username">Username</string>>
+    <string name="hint_password">Password</string>>
+    <string name="btn_skip">Skip</string>
+    <string name="txt_enter_username">Enter Username:</string>
+    <string name="txt_enter_password">Enter Password:</string>
+    <string name="txt_reenter_password">Enter Password Again:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
