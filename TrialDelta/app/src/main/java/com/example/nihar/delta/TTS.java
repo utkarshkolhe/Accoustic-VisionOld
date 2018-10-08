@@ -42,8 +42,11 @@ public class TTS {
         float speed = (float) mSeekBarSpeed.getProgress() / 50;
         if (speed < 0.1) speed = 0.1f;
     */
-        mTTS.speak(text, TextToSpeech.QUEUE_ADD, null);
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 
+    }
+    public static void speakQueue(String text){
+        mTTS.speak(text, TextToSpeech.QUEUE_ADD, null);
     }
     public  static void pause(){
         if (mTTS != null) {

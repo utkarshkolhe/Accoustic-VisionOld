@@ -29,7 +29,7 @@ import java.util.PriorityQueue;
  */
 
 class ImageClassifier {
-
+    //224
     static final int DIM_IMG_SIZE_X = 224;
     static final int DIM_IMG_SIZE_Y = 224;
     private static final String TAG = "ImageClassifier";

@@ -49,6 +49,11 @@ public class Speak extends Fragment {
         //checkPermission();
         //editText=findViewById(R.id.editText);
 
+        if(!GlobalVariables.user.boolSpeechInput){
+            getView().findViewById(R.id.speakBtn).setVisibility(View.INVISIBLE);
+            getView().findViewById(R.id.speakBtn).setEnabled(false);
+            return;
+        }
         mSpeechRecogniser= SpeechRecognizer.createSpeechRecognizer(getContext());
         mSpeechRecogniserIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecogniserIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -116,6 +121,9 @@ public class Speak extends Fragment {
             case 2:
                 processRegisterPage();
                 break;
+            case 3:
+                processMainMenu();
+                break;
         }
     }
     private void processLoginPage(){
@@ -141,6 +149,15 @@ public class Speak extends Fragment {
         }
         else if(commandText.indexOf("back")==0){
             ((Login)getActivity()).callBack();
+        }
+        else if(commandText.indexOf("help")==0){
+            TTS.speak("Available commands are: " +
+                    " Speak Username your username to set your username in Username Field." +
+                    " Speak Password your password to set your password in Password Field." +
+                    " Speak Login to select Login Button." +
+                    " Speak Register to select Register Button." +
+                    " Speak Skip to skip to Main Menu." +
+                    " Speak back to go back.");
         }
         else {
             TTS.speak("Unknown Command");
@@ -172,9 +189,48 @@ public class Speak extends Fragment {
         else if(commandText.indexOf("back")==0){
             ((Register)getActivity()).callBack();
         }
+        else if(commandText.indexOf("help")==0){
+            TTS.speak("Available commands are: " +
+                    " Speak Username your username to set your username in Username Field." +
+                    " Speak Password your password to set your password in Password Field." +
+                    " Speak verify Password your password to set your password in verify Password Field." +
+                    " Speak Register to select Register Button." +
+                    " Speak Skip to skip to Main Menu" +
+                    " Speak back to go back.");
+        }
         else {
             TTS.speak("Unknown Command");
         }
 
+    }
+    public void processMainMenu(){
+        String temp;
+
+        if(commandText.indexOf("text")==0){
+            ((MainMenu)getActivity()).clickTextRecog();
+        }
+        else if(commandText.indexOf("object")==0){
+            ((MainMenu)getActivity()).clickObjectDet();
+        }
+        else if(commandText.indexOf("settings")==0){
+            ((MainMenu)getActivity()).clickSettings();
+        }
+        else if(commandText.indexOf("profile")==0){
+            ((MainMenu)getActivity()).clickProfile();
+        }
+        else if(commandText.indexOf("back")==0){
+            ((MainMenu)getActivity()).callBack();
+        }
+        else if(commandText.indexOf("help")==0){
+            TTS.speak("Available commands are: " +
+                    " Speak Text to go to Text Recognition." +
+                    " Speak Object to go to Object Detection." +
+                    " Speak Settings to go to Settings" +
+                    " Speak Profile to go to Profile" +
+                    " Speak back to go back.");
+        }
+        else {
+            TTS.speak("Unknown Command");
+        }
     }
 }

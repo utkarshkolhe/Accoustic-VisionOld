@@ -117,6 +117,12 @@ public class Login extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
+    }
+
     public int checkLogin(Map<String,String> users, String userN, String passS) {
         if(users==null){
             return -1;

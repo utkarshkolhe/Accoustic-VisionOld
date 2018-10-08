@@ -116,7 +116,7 @@ public class TextRecognition extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
         FirebaseApp.initializeApp(getApplicationContext());
         textureView =findViewById(R.id.texture);
-        TTS.Initalize(this);
+        //TTS.Initalize(this);
         bitmap= Bitmap.createBitmap(900, 1800, Bitmap.Config.ARGB_8888);
         txt = findViewById(R.id.textView2);
 
@@ -133,6 +133,8 @@ public class TextRecognition extends AppCompatActivity {
         });
         */
         updater();
+        if(GlobalVariables.user.boolSpeakPeriodic)
+            autospeak();
 
         //
 
@@ -161,7 +163,39 @@ public class TextRecognition extends AppCompatActivity {
             }
         });
     }
+    private void autospeak(){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
 
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        //takePicture();
+                        if(!timerpause){
+                            if(textFound)
+                                TTS.speak(totaltext);
+                            else
+                                TTS.speak("No Text Detected");
+                        }
+
+                        /*
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+
+                            }
+                        }, 1000);
+                        */
+                    }
+                });
+            }
+        }, 0, 30000);
+    }
 
     //Update Activity every 500ms
     private void updater(){
@@ -193,7 +227,7 @@ public class TextRecognition extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 5000);
+        }, 0, 1000);
     }
 
     private void detectTxt(Bitmap bitmap) {
@@ -410,7 +444,7 @@ public class TextRecognition extends AppCompatActivity {
         } else {
             textureView.setSurfaceTextureListener(textureListener);
         }
-
+        //recreate();
     }
 
     @Override

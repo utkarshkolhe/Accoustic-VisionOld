@@ -19,9 +19,11 @@ public class LoadScreen extends AppCompatActivity {
         SharedPreferences sharedPref;
         sharedPref= getSharedPreferences("myPref", Context.MODE_PRIVATE);
         String userId=sharedPref.getString("user_id","");
+        GlobalVariables.user = new User();
         if(userId.equals("")){
             inte = new Intent(LoadScreen.this,Login.class);
             GlobalVariables.login_status=false;
+            GlobalVariables.username="";
         }
         else{
             inte = new Intent(LoadScreen.this,MainMenu.class);
@@ -45,4 +47,9 @@ public class LoadScreen extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
+    }
 }

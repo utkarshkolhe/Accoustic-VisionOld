@@ -82,8 +82,8 @@ public class ObjectDetection extends AppCompatActivity {
     private ImageClassifier imageClassifier;
     private Map<String,Float> labelsMap,labelsMap2;
     private int humans_count=0;
-    String AllLabels;
-    String AllEmotions;
+    String AllLabels="";
+    String AllEmotions="";
 
     private boolean textFound = false;
     private TextView txt;
@@ -118,8 +118,9 @@ public class ObjectDetection extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
         FirebaseApp.initializeApp(getApplicationContext());
         textureView =findViewById(R.id.texture);
-        TTS.Initalize(this);
-        bitmap= Bitmap.createBitmap(900, 1800, Bitmap.Config.ARGB_8888);
+        //TTS.Initalize(this);
+        bitmap= Bitmap.createBitmap(900, 1600, Bitmap.Config.ARGB_8888);
+
         txt = findViewById(R.id.textView2);
         try {
             imageClassifier = new ImageClassifier(this);
@@ -129,17 +130,10 @@ public class ObjectDetection extends AppCompatActivity {
 
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
-        //takePictureButton = (Button) findViewById(R.id.btn_takepicture);
-
-        /*
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicture();
-            }
-        });
-        */
         updater();
+        if(GlobalVariables.user.boolSpeakPeriodic){
+            autoSpeak();
+        }
 
         //
 
@@ -147,10 +141,7 @@ public class ObjectDetection extends AppCompatActivity {
             private GestureDetector gestureDetector = new GestureDetector(ObjectDetection.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
-                    if(textFound)
-                        TTS.speak(totaltext);
-                    else
-                        TTS.speak("No Text Detected");
+                    speakBack();
                     Log.d("TEST", "onDoubleTap");
                     return super.onDoubleTap(e);
                 }
@@ -168,7 +159,41 @@ public class ObjectDetection extends AppCompatActivity {
             }
         });
     }
+    public void speakBack(){
+        if(GlobalVariables.user.boolDetectLabels) {
+            if (AllLabels.equals(""))
+                TTS.speak("No Objects Detected");
+            else
+                TTS.speak("Detected Labels are: " + AllLabels);
+        }
+        if(GlobalVariables.user.boolDetectExpressions){
+            if (AllEmotions.equals(""))
+                TTS.speakQueue("No Expressions Detected");
+            else
+                TTS.speakQueue("Detected Expressions are: " + AllEmotions);
+        }
+    }
+    private void autoSpeak(){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
 
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        //takePicture();
+                        if(!timerpause){
+                            speakBack();
+
+                        }
+
+                    }
+                });
+            }
+        }, 0, 30000);
+    }
 
     //Update Activity every 500ms
     private void updater(){
@@ -279,7 +304,7 @@ public class ObjectDetection extends AppCompatActivity {
                 else{
                     expression="Sad";
                 }
-
+                AllEmotions= AllEmotions + expression + "\n";
 
             }
             if (face.getRightEyeOpenProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {

@@ -12,23 +12,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
     protected int Page_ID = 3;
     private static final int REQUEST_CALL=1;
+    protected Button textrecog,objectdet,settingsbtn,profilebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         GlobalVariables.current_page=Page_ID;
-        SharedPreferences sharedPref;
-        sharedPref= getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        String userId=sharedPref.getString("user_id","");
+        textrecog = findViewById(R.id.textreg);
+        objectdet = findViewById(R.id.objdet);
+        settingsbtn = findViewById(R.id.Settings);
+        profilebtn = findViewById(R.id.Profile);
+
         if(GlobalVariables.login_status)
-            Toast.makeText(this,"Logged in as : "+userId,Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"Guest Login"+userId,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Logged in as : "+GlobalVariables.username,Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Guest Login", Toast.LENGTH_SHORT).show();
+        }
     }
     public void onTextRecognition(View view){
         Intent inte = new Intent(MainMenu.this,TextRecognition.class);
@@ -43,6 +48,9 @@ public class MainMenu extends AppCompatActivity {
         startActivity(inte);
     }
     public void onSosBtnClick(View view) {
+        if(!GlobalVariables.login_status){
+            return;
+        }
         String number = "+918605800662";
 
         Intent intent = new Intent(Intent.ACTION_CALL);
@@ -73,9 +81,32 @@ public class MainMenu extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        GlobalVariables.current_page=Page_ID;
+        //recreate();
     }
+    public void clickTextRecog(){
+        textrecog.callOnClick();
+    }
+    public void clickObjectDet(){
+        objectdet.callOnClick();
+    }
+    public void clickSettings(){
+        settingsbtn.callOnClick();
+    }
+    public void clickProfile(){
+        profilebtn.callOnClick();
+    }
+    public  void callBack(){
+        finish();
+    }
+
 }
