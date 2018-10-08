@@ -10,7 +10,7 @@ import android.widget.Switch;
 
 public class Settings extends AppCompatActivity {
     protected int Page_ID = 4;
-    protected Switch autospeak,speechinput;
+    protected Switch autospeak,speechinput,detectLabels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
