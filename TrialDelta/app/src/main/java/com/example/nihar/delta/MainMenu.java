@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +26,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        TTS.Initalize(this);
         GlobalVariables.current_page=Page_ID;
         textrecog = findViewById(R.id.textreg);
         objectdet = findViewById(R.id.objdet);
@@ -56,19 +60,28 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel"+number));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             ActivityCompat.requestPermissions(MainMenu.this,new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
             return;
         }Uri.parse("tel"+number);
+        String message= "Need Help. Emergency. Here's my location: ";
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, new LocationListener() {
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {}
+            @Override
+            public void onProviderEnabled(String s) {}
+            @Override
+            public void onProviderDisabled(String s) {}
+            @Override
+            public void onLocationChanged(final Location location) {}
+        });
+        Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        double longitude = myLocation.getLongitude();
+        double latitude = myLocation.getLatitude();
+        message+="http://maps.google.com/?q="+latitude+","+longitude;
         startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+number)));
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+918605800662",null,"msg1asjk",null,null);
+        smsManager.sendTextMessage("+918605800662",null,message,null,null);
 
 
     }

@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         GlobalVariables.current_page=Page_ID;
+        TTS.Initalize(this);
         username = findViewById(R.id.username);
         skip=findViewById(R.id.btnskiplogin);
         register=findViewById(R.id.btnLinkToRegisterScreen);

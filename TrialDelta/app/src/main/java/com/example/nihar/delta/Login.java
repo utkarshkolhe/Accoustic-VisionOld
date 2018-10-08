@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         GlobalVariables.current_page=Page_ID;
+        TTS.Initalize(this);
         login = findViewById(R.id.btnLogin);
         register = findViewById(R.id.btnLinkToRegisterScreen);
         skip = findViewById(R.id.btnskiplogin);
@@ -60,7 +61,7 @@ public class Login extends AppCompatActivity {
 
         console.setText("Logging in. Please Wait");
         //console.append("0");
-        Toast.makeText(this,userN+passS,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,userN+passS,Toast.LENGTH_SHORT).show();
         DatabaseReference ref = FirebaseDatabase.getInstance().getInstance().getReference().child("users");
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {

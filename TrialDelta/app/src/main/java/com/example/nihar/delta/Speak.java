@@ -124,6 +124,9 @@ public class Speak extends Fragment {
             case 3:
                 processMainMenu();
                 break;
+            case 4:
+                processSettings();
+                break;
         }
     }
     private void processLoginPage(){
@@ -232,5 +235,36 @@ public class Speak extends Fragment {
         else {
             TTS.speak("Unknown Command");
         }
+    }
+    public void processSettings(){
+        String temp;
+        /*
+        if(commandText.indexOf("text")==0){
+            ((MainMenu)getActivity()).clickTextRecog();
+        }
+        else if(commandText.indexOf("object")==0){
+            ((MainMenu)getActivity()).clickObjectDet();
+        }
+        else if(commandText.indexOf("settings")==0){
+            ((MainMenu)getActivity()).clickSettings();
+        }
+        else if(commandText.indexOf("profile")==0){
+            ((MainMenu)getActivity()).clickProfile();
+        }
+        else if(commandText.indexOf("back")==0){
+            ((MainMenu)getActivity()).callBack();
+        }
+        else if(commandText.indexOf("help")==0){
+            TTS.speak("Available commands are: " +
+                    " Speak Text to go to Text Recognition." +
+                    " Speak Object to go to Object Detection." +
+                    " Speak Settings to go to Settings" +
+                    " Speak Profile to go to Profile" +
+                    " Speak back to go back.");
+        }
+        else {
+            TTS.speak("Unknown Command");
+        }
+        */
     }
 }

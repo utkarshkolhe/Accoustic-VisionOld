@@ -116,7 +116,7 @@ public class TextRecognition extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
         FirebaseApp.initializeApp(getApplicationContext());
         textureView =findViewById(R.id.texture);
-        //TTS.Initalize(this);
+        TTS.Initalize(this);
         bitmap= Bitmap.createBitmap(900, 1800, Bitmap.Config.ARGB_8888);
         txt = findViewById(R.id.textView2);
 
@@ -194,7 +194,7 @@ public class TextRecognition extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 30000);
+        }, 0, 10000);
     }
 
     //Update Activity every 500ms

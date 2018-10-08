@@ -118,7 +118,7 @@ public class ObjectDetection extends AppCompatActivity {
         GlobalVariables.current_page=Page_ID;
         FirebaseApp.initializeApp(getApplicationContext());
         textureView =findViewById(R.id.texture);
-        //TTS.Initalize(this);
+        TTS.Initalize(this);
         bitmap= Bitmap.createBitmap(900, 1600, Bitmap.Config.ARGB_8888);
 
         txt = findViewById(R.id.textView2);
@@ -192,7 +192,7 @@ public class ObjectDetection extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 30000);
+        }, 0, 10000);
     }
 
     //Update Activity every 500ms
@@ -386,6 +386,7 @@ public class ObjectDetection extends AppCompatActivity {
             }
         }
         txt.setText(AllLabels);
+        txt.append("\nExpressions:\n"+AllEmotions);
 
     }
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
