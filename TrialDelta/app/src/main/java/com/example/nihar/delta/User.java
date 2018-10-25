@@ -6,9 +6,13 @@ public class User {
     public Boolean boolSpeechInput=true;
     public Boolean boolDetectLabels=true;
     public Boolean boolDetectExpressions=true;
-    String Name;
+    public String Name;
     public Boolean LocationAccess = true;
-    public String emergency_number="none";
-    public String msgnumber1,msgnumber2;
+    public String Address="";
+    public String BloodGroup="";
+    public String GName="";
+    public String GNumber="";
+    public String age = "";
+    public String msgnumber1="",msgnumber2="";
 
 }

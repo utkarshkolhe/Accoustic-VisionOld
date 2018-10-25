@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class MainMenu extends AppCompatActivity {
     protected int Page_ID = 3;
     private static final int REQUEST_CALL=1;
-    protected Button textrecog,objectdet,settingsbtn,profilebtn;
+    protected Button textrecog,objectdet,settingsbtn,profilebtn,sosbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class MainMenu extends AppCompatActivity {
         objectdet = findViewById(R.id.objdet);
         settingsbtn = findViewById(R.id.Settings);
         profilebtn = findViewById(R.id.Profile);
-
+        sosbtn = findViewById(R.id.button4);
         if(GlobalVariables.login_status)
             Toast.makeText(this,"Logged in as : "+GlobalVariables.username,Toast.LENGTH_SHORT).show();
         else {
@@ -51,12 +51,22 @@ public class MainMenu extends AppCompatActivity {
         Intent inte = new Intent(MainMenu.this,Settings.class);
         startActivity(inte);
     }
+    public void onProfileBtn(View view){
+        Intent inte = new Intent(MainMenu.this,Form.class);
+        startActivity(inte);
+    }
     public void onSosBtnClick(View view) {
         if(!GlobalVariables.login_status){
+            Toast.makeText(getApplicationContext(),"You must Login",Toast.LENGTH_SHORT).show();
             return;
         }
-        String number = "+918605800662";
-
+        if(GlobalVariables.user.GNumber==null){
+            Toast.makeText(getApplicationContext(),"You must Login",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String number = GlobalVariables.user.GNumber;
+        String enum1 = GlobalVariables.user.msgnumber1;
+        String enum2 = GlobalVariables.user.msgnumber2;
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel"+number));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -81,9 +91,17 @@ public class MainMenu extends AppCompatActivity {
         message+="http://maps.google.com/?q="+latitude+","+longitude;
         startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+number)));
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+918605800662",null,message,null,null);
-
-
+        try {
+            if(!number.equals(""))
+                smsManager.sendTextMessage(number, null, message, null, null);
+            if(!enum1.equals(""))
+                smsManager.sendTextMessage(enum1, null, message, null, null);
+            if(!enum2.equals(""))
+                smsManager.sendTextMessage(enum2, null, message, null, null);
+        }
+        catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Incorrect Numbers",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -118,6 +136,7 @@ public class MainMenu extends AppCompatActivity {
     public void clickProfile(){
         profilebtn.callOnClick();
     }
+    public void clickSOS(){sosbtn.callOnClick();}
     public  void callBack(){
         finish();
     }

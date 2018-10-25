@@ -18,4 +18,6 @@
     <color name="btn_logut_bg">#ff6861</color>
     <color name="btn_register_bg">#d61a02</color>>
     <color name="btn_skip_bg">#eceef1</color>
+    <color name="colorTransparentWhite">#cccccc</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

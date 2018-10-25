@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
                             editor.apply();
                             GlobalVariables.login_status=true;
                             GlobalVariables.username=userN;
-                            inte = new Intent(Register.this,MainMenu.class);
+                            inte = new Intent(Register.this,Form.class);
                             finish();
                             startActivity(inte);
                         }

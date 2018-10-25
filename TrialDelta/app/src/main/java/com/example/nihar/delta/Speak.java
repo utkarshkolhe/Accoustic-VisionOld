@@ -192,6 +192,7 @@ public class Speak extends Fragment {
         else if(commandText.indexOf("back")==0){
             ((Register)getActivity()).callBack();
         }
+
         else if(commandText.indexOf("help")==0){
             TTS.speak("Available commands are: " +
                     " Speak Username your username to set your username in Username Field." +
@@ -224,12 +225,16 @@ public class Speak extends Fragment {
         else if(commandText.indexOf("back")==0){
             ((MainMenu)getActivity()).callBack();
         }
+        else if(commandText.indexOf("sos")==0){
+            ((MainMenu)getActivity()).clickSOS();
+        }
         else if(commandText.indexOf("help")==0){
             TTS.speak("Available commands are: " +
                     " Speak Text to go to Text Recognition." +
                     " Speak Object to go to Object Detection." +
                     " Speak Settings to go to Settings" +
                     " Speak Profile to go to Profile" +
+                    " Speak SOS to Call and message emergency numbers"+
                     " Speak back to go back.");
         }
         else {

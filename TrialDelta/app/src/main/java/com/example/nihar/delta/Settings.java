@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Switch;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Settings extends AppCompatActivity {
     protected int Page_ID = 4;
     protected Switch autospeak,speechinput,detectLabels,detectExpressions;
@@ -56,6 +59,8 @@ public class Settings extends AppCompatActivity {
         GlobalVariables.user.boolSpeechInput = speechinput.isChecked();
         GlobalVariables.user.boolDetectLabels = detectLabels.isChecked();
         GlobalVariables.user.boolDetectExpressions=detectExpressions.isChecked();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getInstance().getReference().child("Data");
+        ref.child(GlobalVariables.username).setValue(GlobalVariables.user);
         recreate();
 
     }

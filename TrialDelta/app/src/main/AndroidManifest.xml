@@ -33,7 +33,9 @@
         <activity android:name=".Settings" />
         <activity android:name=".TextRecognition" />
         <activity android:name=".ObjectDetection" />
-        <activity android:name=".Form"></activity>
+        <activity android:name=".Form" />
+        <activity android:name=".Walkthrough">
+        </activity>
     </application>
 
 </manifest>
